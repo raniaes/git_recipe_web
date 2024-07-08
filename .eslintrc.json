@@ -1,0 +1,27 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "prettier"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off",  // 이 줄을 추가합니다.
+      "react/prop-types": "off",
+      "prettier/prettier": ["error"]
+    }
+  }
