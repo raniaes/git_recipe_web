@@ -30,6 +30,17 @@ a {
   margin: 0 auto;
 }
 
+
+.header {
+  position: relative;
+}
+
+.header .menu {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
 .footer {
   position: absolute;
   bottom: 10px;
@@ -103,6 +114,12 @@ button {
   cursor: pointer;
   border: 0 none;
   border-radius: 6px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: dodgerblue;
+}
+
+.backbutton {
   color: #fff;
   display: inline-block;
   background-color: dodgerblue;
@@ -116,6 +133,9 @@ button {
   cursor: pointer;
   border: 0 none;
   border-radius: 6px;
+  padding: 10px 20px;
+  color: black;
+  background-color: greenyellow;
   color: #fff;
   display: inline-block;
   background-color: dodgerblue;
