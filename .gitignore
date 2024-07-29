@@ -43,4 +43,5 @@ yarn-error.log*
 .prettierrc.config.json
 
 # VS Code settings
+
 .vscode/settings.json
