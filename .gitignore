@@ -21,3 +21,26 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ESLint
+.eslintignore
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+.eslintrc.yaml
+.eslintrc.yml
+
+# Prettier
+.prettierignore
+.prettierrc
+.prettierrc.js
+.prettierrc.json
+.prettierrc.yml
+.prettierrc.yaml
+.prettierrc.toml
+.prettierrc.config.js
+.prettierrc.config.cjs
+.prettierrc.config.json
+
+# VS Code settings
+.vscode/settings.json
