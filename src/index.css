@@ -30,6 +30,7 @@ a {
   margin: 0 auto;
 }
 
+
 .header {
   position: relative;
 }
@@ -40,7 +41,16 @@ a {
   right: 0;
 }
 
-.header .link {
+.footer {
+  position: absolute;
+  bottom: 10px;
+}
+
+.menu {
+  position: absolute;
+}
+
+.link {
   border: 1px solid #333;
   padding: 10px;
   margin-left: 10px;
@@ -110,6 +120,13 @@ button {
 }
 
 .backbutton {
+  color: #fff;
+  display: inline-block;
+  background-color: dodgerblue;
+}
+
+.button_lgn {
+  width: 425px;
   padding: 10px;
   font-weight: bold;
   font-size: 18px;
@@ -119,6 +136,29 @@ button {
   padding: 10px 20px;
   color: black;
   background-color: greenyellow;
+  color: #fff;
+  display: inline-block;
+  background-color: dodgerblue;
+}
+
+.button_reg {
+  font-weight: bold;
+  font-size: 18px;
+  color: green;
+}
+
+.btn_back{
+  position: absolute;
+  left: 10%;
+  color: #fff;
+  background-color: green;
+}
+
+.btn_next{
+  position: absolute;
+  right: 10%;
+  color: #fff;
+  background-color: green;
 }
 
 .input_area {
