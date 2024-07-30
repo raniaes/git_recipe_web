@@ -10,7 +10,7 @@ export default function User_Register() {
 
     if (!isLoading) {
       setIsLoading(true);
-      fetch(`https://localhost:7110/api/User/register`, {
+      fetch(`https://localhost:7225/api/User/Register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,7 +22,7 @@ export default function User_Register() {
       }).then((res) => {
         if (res.ok) {
           alert("Registration success.");
-          history("/Login");
+          history("/");
           setIsLoading(false);
         }
       });
@@ -46,7 +46,7 @@ export default function User_Register() {
       <button style={{ opacity: isLoading ? 0.3 : 1 }}>
         {isLoading ? "Registering..." : "Register"}
       </button>
-      <Link to="/Main" style={{ marginLeft: "10px", textDecoration: "none" }}>
+      <Link to="/" style={{ marginLeft: "10px", textDecoration: "none" }}>
         <button className="backbutton" type="button">
           Back to Login
         </button>

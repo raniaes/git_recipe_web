@@ -7,7 +7,7 @@ export default function Login(){
     function onSubmit(e){
         e.preventDefault();
 
-        fetch('https://localhost:7110/api/User/Login', {
+        fetch('https://localhost:7225/api/User/Login', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export default function Login(){
         </div>
         <div className="input_area">
             <label>Password</label>
-            <input type="text" placeholder="Password" ref={PasswordRef}/>
+            <input type="password" placeholder="Password" ref={PasswordRef}/>
         </div>
         <div>
             <button className="button_lgn">Login</button>
