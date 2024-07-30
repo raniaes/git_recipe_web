@@ -1,11 +1,27 @@
-import {useLocation} from 'react-router-dom'
+import Header from "./Header";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-export default function Recipe_List(){
+export default function Recipe_List() {
+  const location = useLocation();
+  const [id, setId] = useState(null);
 
-    const location = useLocation();
-    const {Id} = location.state || {};
+  useEffect(() => {
+    if (location.state && location.state.Id) {
+      sessionStorage.setItem("userId", location.state.Id);
+      setId(location.state.Id);
+    } else {
+      const storedId = sessionStorage.getItem("userId");
+      setId(storedId);
+    }
+  }, [location.state]);
 
-    return (
-        <h2>{Id}</h2>
-    )
+  return (
+    <div>
+      <Header />
+      <div>
+        <h1>Recipe list Page</h1>
+      </div>
+    </div>
+  );
 }
