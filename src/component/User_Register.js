@@ -10,7 +10,7 @@ export default function User_Register() {
 
     if (!isLoading) {
       setIsLoading(true);
-      fetch(`https://localhost:7225/api/User/register`, {
+      fetch(`https://localhost:7225/api/User/Register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,6 +29,7 @@ export default function User_Register() {
           if (idRef.current) idRef.current.value = "";
           if (pwRef.current) pwRef.current.value = "";
           history("/Register");
+
           setIsLoading(false);
         }
       });
