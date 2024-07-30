@@ -1,19 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const storedId = sessionStorage.getItem("userId");
+
+  const logout = () => {
+    sessionStorage.removeItem("userId");
+    navigate("/");
+  };
   return (
-    <dev className="header">
+    <div className="header">
       <h1>
-        <Link to="/">WEB Recipe</Link>
+        <Link to="/RecipeList">Recipe Web Page</Link>
       </h1>
-      <dev className="menu">
-        <Link to="/create_word" className="link">
-          ADD RECIPE
+      <div className="showid">{<p>Welcome {storedId}!!</p>}</div>
+      <div className="menu">
+        <Link to="/RecipeAdd" className="link">
+          Add Recipe
         </Link>
-        <Link to="/create_day" className="link">
-          Day 추가
-        </Link>
-      </dev>
-    </dev>
+        <button onClick={logout} className="link" style={{ color: "black" }}>
+          Logout
+        </button>
+      </div>
+    </div>
   );
 }

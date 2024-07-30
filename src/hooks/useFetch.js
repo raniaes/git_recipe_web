@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 export default function useFetch(url){
@@ -15,3 +16,4 @@ export default function useFetch(url){
 
     return data;
 }
+
