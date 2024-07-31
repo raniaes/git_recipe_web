@@ -1,18 +1,31 @@
+
+import Header from "./Header";
 import { useLocation } from 'react-router-dom'
 import useFetch from '../hooks/useFetch';
 import Recipe from './Recipe';
-import { useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export default function Recipe_List() {
 
     const location = useLocation();
-    const { Id } = location.state || {};
+    const [id, setId] = useState(null);
     const [url, setUrl] = useState(`https://localhost:7225/api/Recipe`);
     const recipeList = useFetch(url);
     const NameRef = useRef(null);
     const FilterRef = useRef(null);
     const categories = useFetch(`https://localhost:7225/api/Category`);
 
+  
+    useEffect(() => {
+    if (location.state && location.state.Id) {
+      sessionStorage.setItem("userId", location.state.Id);
+      setId(location.state.Id);
+    } else {
+      const storedId = sessionStorage.getItem("userId");
+      setId(storedId);
+    }
+  }, [location.state]);
+  
     function search() {
         if (NameRef.current.value.length > 2) {
             if (FilterRef.current.value === "None"){
@@ -39,7 +52,7 @@ export default function Recipe_List() {
 
     return (
         <>
-            <h2>{Id}</h2>
+            <Header />
 
             <div className="input_search">
                 <input type="text" placeholder="Name" ref={NameRef} />
@@ -69,3 +82,4 @@ export default function Recipe_List() {
         </>
     )
 }
+

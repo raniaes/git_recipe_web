@@ -24,6 +24,13 @@ export default function User_Register() {
           alert("Registration success.");
           history("/");
           setIsLoading(false);
+        } else if (res.status === 422) {
+          alert("Already Exist same ID.");
+          if (idRef.current) idRef.current.value = "";
+          if (pwRef.current) pwRef.current.value = "";
+          history("/Register");
+
+          setIsLoading(false);
         }
       });
     }

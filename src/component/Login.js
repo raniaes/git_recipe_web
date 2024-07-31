@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
-export default function Login(){
-    const Navigate = useNavigate();
+export default function Login() {
+  const Navigate = useNavigate();
 
-    function onSubmit(e){
-        e.preventDefault();
+  function onSubmit(e) {
+    e.preventDefault();
+
 
         fetch('https://localhost:7225/api/User/Login', {
             method: 'POST',
@@ -27,8 +28,10 @@ export default function Login(){
         });
     }
 
-    const IdRef = useRef(null);
-    const PasswordRef = useRef(null);
+
+  const IdRef = useRef(null);
+  const PasswordRef = useRef(null);
+
 
     return <form onSubmit = {onSubmit}>
         <h2>Login</h2>
@@ -49,4 +52,5 @@ export default function Login(){
             <label> ?</label>
         </div>
     </form>
+  );
 }
