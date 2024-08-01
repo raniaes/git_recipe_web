@@ -1,16 +1,32 @@
 import useFetch from "../hooks/useFetch";
-import { useRef, useState } from "react";
+import Modal from "./Add_IngreModal";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Recipe_Add() {
   const categorys = useFetch("https://localhost:7225/api/Category");
-  const ingredients = useFetch("https://localhost:7225/api/Ingredient");
   const storedId = sessionStorage.getItem("userId");
 
   const history = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [refreshIngredients, setRefreshIngredients] = useState(false);
+
+  const [rows, setRows] = useState([""]);
+  const [inputValues, setInputValues] = useState([""]);
+
+  useEffect(() => {
+    fetch("https://localhost:7225/api/Ingredient")
+      .then((response) => response.json())
+      .then((data) => {
+        setIngredients(data);
+      })
+      .catch((error) => console.error("error:", error));
+  }, [refreshIngredients]);
 
   const handleAddClick = () => {
     const selectedOption =
@@ -21,9 +37,38 @@ export default function Recipe_Add() {
     };
     const updatedIngredients = [...selectedIngredients, newIngredient];
     setSelectedIngredients(updatedIngredients);
+  };
 
-    // Print the array to the console
-    console.log("Selected Ingredients:", updatedIngredients);
+  const Add_Line = () => {
+    setRows([...rows, ""]);
+    setInputValues([...inputValues, ""]);
+  };
+
+  const Del_Line = () => {
+    if (rows.length > 0) {
+      setRows(rows.slice(0, -1));
+      setInputValues(inputValues.slice(0, -1));
+    }
+  };
+
+  const Del_ingreRow = (id) => {
+    setSelectedIngredients((prevIngredients) =>
+      prevIngredients.filter((ingredient) => ingredient.id !== id)
+    );
+  };
+
+  const handleInputChange = (index, event) => {
+    const newInputValues = [...inputValues];
+    newInputValues[index] = event.target.value;
+    setInputValues(newInputValues);
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const handleAddIngredient = (newIngredient) => {
+    setRefreshIngredients((prev) => !prev);
   };
 
   function onSubmit(e) {
@@ -52,7 +97,7 @@ export default function Recipe_Add() {
         },
         body: JSON.stringify({
           name: nameRef.current.value,
-          instruction: instRef.current.value,
+          instruction: combinedInstValues,
           pic_address: picRef.current.value,
         }),
       }).then((res) => {
@@ -72,19 +117,19 @@ export default function Recipe_Add() {
   const nameRef = useRef(null);
   const categoryRef = useRef(null);
   const ingreRef = useRef(null);
-  const instRef = useRef(null);
   const picRef = useRef(null);
+
+  const combinedInstValues = inputValues.join(",");
 
   return (
     <form onSubmit={onSubmit}>
-      <h1>{storedId}</h1>
       <h1>Recipe Register Form</h1>
       <div className="input_area">
-        <label>Recipe Name</label>
+        <h3>Recipe Name</h3>
         <input type="text" ref={nameRef} />
       </div>
       <div className="input_area">
-        <label>Category</label>
+        <h3>Category</h3>
         <select ref={categoryRef}>
           {categorys.map((ct) => (
             <option key={ct.id} value={ct.name} dataid={ct.id}>
@@ -94,7 +139,18 @@ export default function Recipe_Add() {
         </select>
       </div>
       <div className="input_area">
-        <label>Ingredient Select</label>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <h3>Ingredient Select</h3>
+          <button onClick={openModal} type="button">
+            add ingre
+          </button>
+        </div>
         <select ref={ingreRef}>
           {ingredients.map((ingre) => (
             <option key={ingre.id} value={ingre.name} data-id={ingre.id}>
@@ -102,7 +158,11 @@ export default function Recipe_Add() {
             </option>
           ))}
         </select>
-        <button onClick={handleAddClick} type="button">
+        <button
+          onClick={handleAddClick}
+          type="button"
+          style={{ marginLeft: "20px" }}
+        >
           Add
         </button>
       </div>
@@ -112,17 +172,48 @@ export default function Recipe_Add() {
             {selectedIngredients.map((ingredient) => (
               <tr key={ingredient.id}>
                 <td>{ingredient.name}</td>
+                <button
+                  onClick={() => Del_ingreRow(ingredient.id)}
+                  type="button"
+                  style={{ marginLeft: "20px" }}
+                >
+                  Del
+                </button>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <div className="input_area">
-        <label>Instruction</label>
-        <input type="text" ref={instRef} />
+        <h3>Instruction</h3>
+        <table style={{ border: 0, borderCollapse: "collapse" }}>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={index}>
+                <td style={{ border: 0 }}>{index + 1}</td>
+                <td style={{ border: 0 }}>
+                  <input
+                    type="text"
+                    value={inputValues[index]}
+                    onChange={(event) => handleInputChange(index, event)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button onClick={Add_Line} type="button">
+          Add Line
+        </button>
+        <button onClick={Del_Line} type="button" style={{ marginLeft: "20px" }}>
+          Del Line
+        </button>
+        <div style={{ display: "none" }}>
+          <strong>Combined Inst Values:</strong> {combinedInstValues}
+        </div>
       </div>
       <div className="input_area">
-        <label>Picture</label>
+        <h3>Picture</h3>
         <input type="text" ref={picRef} placeholder="pic_address" />
       </div>
       <button style={{ opacity: isLoading ? 0.3 : 1 }}>
@@ -136,6 +227,12 @@ export default function Recipe_Add() {
           Back to Recipe List
         </button>
       </Link>
+
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        onAdd={handleAddIngredient}
+      />
     </form>
   );
 }
