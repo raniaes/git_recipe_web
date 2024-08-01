@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 export default function Header() {
   const navigate = useNavigate();
   const storedId = sessionStorage.getItem("userId");
+  const userinfo = useFetch(`https://localhost:7225/api/User/${storedId}`);
 
   const logout = () => {
     sessionStorage.removeItem("userId");
@@ -13,7 +15,7 @@ export default function Header() {
       <h1>
         <Link to="/RecipeList">Recipe Web Page</Link>
       </h1>
-      <div className="showid">{<p>Welcome {storedId}!!</p>}</div>
+      <div className="showid">{<p>Welcome {userinfo.userId}!!</p>}</div>
       <div className="menu">
         <Link to="/RecipeAdd" className="link">
           Add Recipe
