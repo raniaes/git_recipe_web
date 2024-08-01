@@ -70,9 +70,9 @@ export default function Recipe_List() {
             <table style={{ borderCollapse: 'collapse', width: '100%' }}>
                 <tbody>
                     <tr>
-                        <td style={{ border: 'none' }}>Name</td>
-                        <td style={{ border: 'none' }}>Category</td>
-                        <td style={{ border: 'none' }}>Writer</td>
+                        <td style={{ border: 'none', fontWeight: 'bold', color: 'green' }}>Name</td>
+                        <td style={{ border: 'none', fontWeight: 'bold', color: 'green' }}>Category</td>
+                        <td style={{ border: 'none', fontWeight: 'bold', color: 'green' }}>Writer</td>
                     </tr>
                     {recipeList.map(recipe => (
                         <Recipe recipe={recipe} key={recipe.id} />

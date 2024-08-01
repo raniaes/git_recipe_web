@@ -109,6 +109,32 @@ table td:first-child {
   text-align: left;
 }
 
+.table_review {
+  border-collapse: collapse;
+  width: 100%;
+}
+.table_review td {
+  width: 10%;
+  height: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 17px;
+}
+
+.table_review td:first-child {
+  width: 15%;
+  text-align: left;
+}
+
+.table_review td:nth-child(2) {
+  width: 60%;
+  text-align: left;
+}
+
+.table_review td:nth-child(3) {
+  width: 15%;
+}
+
 .off td {
   background: #eee;
   color: #ccc;
@@ -227,4 +253,14 @@ button {
   right: 8%;
   height: 30px;
   font-size: 20px;
+}
+
+.recipe_div{
+  border: 2px solid black; 
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.recipe_div h3 {
+  margin-top: -10px;
 }
