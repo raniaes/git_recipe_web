@@ -33,7 +33,7 @@ export default function Login() {
   const PasswordRef = useRef(null);
 
 
-    return <form onSubmit = {onSubmit}>
+    return (<form onSubmit = {onSubmit}>
         <h2>Login</h2>
         <div className="input_area">
             <label>Id</label>
