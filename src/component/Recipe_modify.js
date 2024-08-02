@@ -2,8 +2,30 @@ import useFetch from "../hooks/useFetch";
 import Modal from "./Add_IngreModal";
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export default function Recipe_Add() {
+export default function Recipe_Modify() {
+  const [owner, setOnwer] = useState("");
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [instructions, setInstructions] = useState([]);
+  const [picAddress, setPicAddress] = useState("");
+
+  const recipe_id = useParams().Recipe;
+
+  const recipe_ingred = useFetch(
+    `https://localhost:7230/api/Ingredient/${recipe_id}/ingredient`
+  );
+
+  const recipe_info = useFetch(
+    `https://localhost:7230/api/Recipe/${recipe_id}`
+  );
+  const recipe_name = recipe_info.name;
+  const recipe_data = useFetch(
+    `https://localhost:7230/api/Recipe/search/${recipe_name}`
+  );
+
+  const owner_name = useFetch(`https://localhost:7230/api/User/${owner}`);
   const categorys = useFetch("https://localhost:7230/api/Category");
   const storedId = sessionStorage.getItem("userId");
 
@@ -16,8 +38,16 @@ export default function Recipe_Add() {
   const [showModal, setShowModal] = useState(false);
   const [refreshIngredients, setRefreshIngredients] = useState(false);
 
-  const [rows, setRows] = useState([""]);
-  const [inputValues, setInputValues] = useState([""]);
+  useEffect(() => {
+    if (recipe_data && recipe_data.length > 0) {
+      const recipe = recipe_data[0];
+      setOnwer(recipe.userId);
+      setName(recipe.name);
+      setCategory(recipe.categoryId);
+      setInstructions(recipe.instruction.split(",")); // assuming instructions are comma-separated
+      setPicAddress(recipe.pic_address);
+    }
+  }, [recipe_data]);
 
   useEffect(() => {
     fetch("https://localhost:7230/api/Ingredient")
@@ -27,6 +57,12 @@ export default function Recipe_Add() {
       })
       .catch((error) => console.error("error:", error));
   }, [refreshIngredients]);
+
+  useEffect(() => {
+    if (recipe_ingred) {
+      setSelectedIngredients(recipe_ingred);
+    }
+  }, [recipe_ingred]);
 
   const handleAddClick = () => {
     const selectedOption =
@@ -40,31 +76,29 @@ export default function Recipe_Add() {
   };
 
   const Add_Line = () => {
-    setRows([...rows, ""]);
-    setInputValues([...inputValues, ""]);
+    setInstructions([...instructions, ""]);
   };
 
   const Del_Line = () => {
-    if (rows.length > 0) {
-      setRows(rows.slice(0, -1));
-      setInputValues(inputValues.slice(0, -1));
+    if (instructions.length > 0) {
+      setInstructions(instructions.slice(0, -1));
     }
+  };
+
+  const handleInputChange = (index, event) => {
+    const newInstructions = [...instructions];
+    newInstructions[index] = event.target.value;
+    setInstructions(newInstructions);
+  };
+
+  const openModal = () => {
+    setShowModal(true);
   };
 
   const Del_ingreRow = (id) => {
     setSelectedIngredients((prevIngredients) =>
       prevIngredients.filter((ingredient) => ingredient.id !== id)
     );
-  };
-
-  const handleInputChange = (index, event) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = event.target.value;
-    setInputValues(newInputValues);
-  };
-
-  const openModal = () => {
-    setShowModal(true);
   };
 
   const handleAddIngredient = (newIngredient) => {
@@ -79,31 +113,30 @@ export default function Recipe_Add() {
 
       const ingreIds = selectedIngredients.map((ingredient) => ingredient.id);
       const userId = storedId;
-      const categoryId = parseInt(
-        categoryRef.current.options[
-          categoryRef.current.selectedIndex
-        ].getAttribute("dataid"),
-        10
-      );
-      let url = `https://localhost:7230/api/Recipe?userId=${userId}&categoryId=${categoryId}`;
+      const categoryId = category;
+      //https://localhost:7230/api/Recipe/2?ingreId=2&ingreId=3&ingreId=4&userId=3&categoryId=2
+      let url = `https://localhost:7230/api/Recipe/${recipe_id}?`;
       ingreIds.forEach((id) => {
         url += `&ingreId=${id}`;
       });
 
+      url = url += `&userId=${userId}&categoryId=${categoryId}`;
+
       fetch(url, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: nameRef.current.value,
+          id: recipe_id,
+          name: name,
           instruction: combinedInstValues,
-          pic_address: picRef.current.value,
+          pic_address: picAddress,
         }),
       }).then((res) => {
         if (res.ok) {
-          alert("Registration success.");
-          history("/RecipeList");
+          alert("modify success.");
+          history(`/RecipeList/Recipe/${recipe_id}/${owner_name.userId}`);
           setIsLoading(false);
         } else if (res.status === 422) {
           alert("Already Exist same Recipe.");
@@ -114,25 +147,26 @@ export default function Recipe_Add() {
     }
   }
 
-  const nameRef = useRef(null);
-  const categoryRef = useRef(null);
   const ingreRef = useRef(null);
-  const picRef = useRef(null);
 
-  const combinedInstValues = inputValues.join(",");
+  const combinedInstValues = instructions.join(",");
 
   return (
     <form onSubmit={onSubmit}>
-      <h1>Recipe Register Form</h1>
+      <h1>Recipe Modify Form</h1>
       <div className="input_area">
         <h3>Recipe Name</h3>
-        <input type="text" ref={nameRef} />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
       </div>
       <div className="input_area">
         <h3>Category</h3>
-        <select ref={categoryRef}>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
           {categorys.map((ct) => (
-            <option key={ct.id} value={ct.name} dataid={ct.id}>
+            <option key={ct.id} value={ct.id}>
               {ct.name}
             </option>
           ))}
@@ -188,13 +222,13 @@ export default function Recipe_Add() {
         <h3>Instruction</h3>
         <table style={{ border: 0, borderCollapse: "collapse" }}>
           <tbody>
-            {rows.map((row, index) => (
+            {instructions.map((instruction, index) => (
               <tr key={index}>
                 <td style={{ border: 0 }}>{index + 1}</td>
                 <td style={{ border: 0 }}>
                   <input
                     type="text"
-                    value={inputValues[index]}
+                    value={instruction}
                     onChange={(event) => handleInputChange(index, event)}
                   />
                 </td>
@@ -214,17 +248,21 @@ export default function Recipe_Add() {
       </div>
       <div className="input_area">
         <h3>Picture</h3>
-        <input type="text" ref={picRef} placeholder="pic_address" />
+        <input
+          type="text"
+          value={picAddress}
+          onChange={(e) => setPicAddress(e.target.value)}
+        />
       </div>
       <button style={{ opacity: isLoading ? 0.3 : 1 }}>
         {isLoading ? "Saveing..." : "Save"}
       </button>
       <Link
-        to="/RecipeList"
+        to={`/RecipeList/Recipe/${recipe_id}/${owner_name.userId}`}
         style={{ marginLeft: "10px", textDecoration: "none" }}
       >
         <button className="backbutton" type="button">
-          Back to Recipe List
+          Back to Detail Recipe Page
         </button>
       </Link>
 
