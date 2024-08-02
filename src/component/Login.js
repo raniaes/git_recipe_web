@@ -7,7 +7,7 @@ export default function Login() {
   function onSubmit(e) {
     e.preventDefault();
 
-    fetch("https://localhost:7225/api/User/Login", {
+    fetch("https://localhost:7230/api/User/Login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

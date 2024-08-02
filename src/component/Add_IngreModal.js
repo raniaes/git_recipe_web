@@ -11,7 +11,7 @@ const Modal = ({ show, onClose, onAdd }) => {
 
   const addIngre = () => {
     if (ingredientName) {
-      fetch(`https://localhost:7225/api/Ingredient`, {
+      fetch(`https://localhost:7230/api/Ingredient`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

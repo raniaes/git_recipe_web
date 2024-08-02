@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 export default function Header() {
   const navigate = useNavigate();
   const storedId = sessionStorage.getItem("userId");
-  const userinfo = useFetch(`https://localhost:7225/api/User/${storedId}`);
+  const userinfo = useFetch(`https://localhost:7230/api/User/${storedId}`);
 
   const logout = () => {
     sessionStorage.removeItem("userId");

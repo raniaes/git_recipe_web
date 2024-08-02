@@ -9,11 +9,11 @@ export default function Recipe_List() {
 
     const location = useLocation();
     const [id, setId] = useState(null);
-    const [url, setUrl] = useState(`https://localhost:7225/api/Recipe`);
+    const [url, setUrl] = useState(`https://localhost:7230/api/Recipe`);
     const recipeList = useFetch(url);
     const NameRef = useRef(null);
     const FilterRef = useRef(null);
-    const categories = useFetch(`https://localhost:7225/api/Category`);
+    const categories = useFetch(`https://localhost:7230/api/Category`);
 
   
     useEffect(() => {
@@ -29,10 +29,10 @@ export default function Recipe_List() {
     function search() {
         if (NameRef.current.value.length > 2) {
             if (FilterRef.current.value === "None"){
-                setUrl(`https://localhost:7225/api/Recipe/search/${NameRef.current.value}`);
+                setUrl(`https://localhost:7230/api/Recipe/search/${NameRef.current.value}`);
             }
             else{
-                setUrl(`https://localhost:7225/api/Recipe/filter_search/${FilterRef.current.value}/${NameRef.current.value}`);
+                setUrl(`https://localhost:7230/api/Recipe/filter_search/${FilterRef.current.value}/${NameRef.current.value}`);
             }
         }
         else {
@@ -43,10 +43,10 @@ export default function Recipe_List() {
 
     function filter(event){
         if (event.target.value === "None"){
-            setUrl(`https://localhost:7225/api/Recipe`);
+            setUrl(`https://localhost:7230/api/Recipe`);
         }
         else{
-            setUrl(`https://localhost:7225/api/Recipe/filter/${event.target.value}`);
+            setUrl(`https://localhost:7230/api/Recipe/filter/${event.target.value}`);
         }
     }
 
