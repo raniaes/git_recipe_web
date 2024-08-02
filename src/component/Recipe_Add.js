@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Recipe_Add() {
-  const categorys = useFetch("https://localhost:7225/api/Category");
+  const categorys = useFetch("https://localhost:7230/api/Category");
   const storedId = sessionStorage.getItem("userId");
 
   const history = useNavigate();
@@ -20,7 +20,7 @@ export default function Recipe_Add() {
   const [inputValues, setInputValues] = useState([""]);
 
   useEffect(() => {
-    fetch("https://localhost:7225/api/Ingredient")
+    fetch("https://localhost:7230/api/Ingredient")
       .then((response) => response.json())
       .then((data) => {
         setIngredients(data);

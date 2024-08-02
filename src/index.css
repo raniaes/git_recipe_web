@@ -144,6 +144,8 @@ table td:first-child {
   margin-left: 10px;
   color: #fff;
   background-color: firebrick;
+  font-size: 13px;
+  
 }
 
 button {
@@ -263,4 +265,14 @@ button {
 
 .recipe_div h3 {
   margin-top: -10px;
+}
+
+.button_Add_review {
+  height: 25px;
+  width: 60px;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
 }

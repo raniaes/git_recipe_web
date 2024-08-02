@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function Recipe(props){
     const [recipe, setrecipe] = useState(props.recipe);
-    const category = useFetch(`https://localhost:7225/api/Category/${recipe.categoryId}`);
-    const user = useFetch(`https://localhost:7225/api/User/${recipe.userId}`);
+    const category = useFetch(`https://localhost:7230/api/Category/${recipe.categoryId}`);
+    const user = useFetch(`https://localhost:7230/api/User/${recipe.userId}`);
     
     return (
         <tr>
