@@ -22,6 +22,15 @@ export default function Dt_Recipe() {
     const ContentRef = useRef(null);
     const RatingRef = useRef(null);
     const [status, setStatus] = useState('');
+ 
+    const [currentPage, setCurrentPage] = useState(1);
+    const reviewsPerPage = 10;
+
+    const indexOfLastReview = currentPage * reviewsPerPage;
+    const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+    const currentReviews = reviewList.slice(indexOfFirstReview, indexOfLastReview);
+
+    const totalPages = Math.ceil(reviewList.length / reviewsPerPage);
 
   useEffect(() => {
     if (ingredient) {
@@ -110,6 +119,18 @@ export default function Dt_Recipe() {
         setReviewList(prevReviews => prevReviews.filter(review => review.id !== reviewId));
     }
 
+    function nextPage() {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
     return (
         <>
             <Header />
@@ -166,14 +187,15 @@ export default function Dt_Recipe() {
                             <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Reviewer</td>
                             <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Rating</td>
                         </tr>
-                        {reviewList.map(review => (
+                        {currentReviews.map(review => (
                             <Review review={review} key={review.id} onDelete={handleDelete} />
                         ))}
                     </tbody>
                 </table>
                 <div className="next_back_div">
-                    <button>Back</button>
-                    <button>Next</button>
+                    <button onClick={prevPage} style={{ opacity: (currentPage === 1) ? 0.3 : 1 }} disabled={currentPage === 1}>Back</button>
+                    <label>{currentPage}</label>
+                    <button onClick={nextPage} style={{ opacity: (currentPage === totalPages) ? 0.3 : 1 }} disabled={currentPage === totalPages}>Next</button>
                 </div>
             </div>
         </>
