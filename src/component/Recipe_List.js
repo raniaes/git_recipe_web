@@ -40,14 +40,14 @@ export default function Recipe_List() {
   }
 
 
-    function filter(event){
-        if (event.target.value === "None"){
-            setUrl(`https://localhost:7230/api/Recipe`);
-        }
-        else{
-            setUrl(`https://localhost:7230/api/Recipe/filter/${event.target.value}`);
-        }
+  function filter(event) {
+    if (event.target.value === "None") {
+      setUrl(`https://localhost:7230/api/Recipe`);
     }
+    else {
+      setUrl(`https://localhost:7230/api/Recipe/filter/${event.target.value}`);
+    }
+  }
 
   return (
     <>
@@ -84,6 +84,10 @@ export default function Recipe_List() {
           ))}
         </tbody>
       </table>
+      <div className="next_back_div">
+        <button>Back</button>
+        <button>Next</button>
+      </div>
     </>
   );
 }
