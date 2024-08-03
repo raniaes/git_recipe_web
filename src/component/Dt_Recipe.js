@@ -8,6 +8,8 @@ import Review from "./Review";
 export default function Dt_Recipe() {
 
     const recipe_id = useParams().Recipe;
+    const user_id = useParams().UId;
+    const [match_writer, Setmatch_writer] = useState(false);
     const recipe = useFetch(`https://localhost:7230/api/Recipe/${recipe_id}`);
     const storedId = sessionStorage.getItem("userId");
     const ingredient = useFetch(`https://localhost:7230/api/Ingredient/${recipe_id}/ingredient`);
@@ -21,22 +23,29 @@ export default function Dt_Recipe() {
     const RatingRef = useRef(null);
     const [status, setStatus] = useState('');
 
+  useEffect(() => {
+    if (ingredient) {
+      const names = ingredient.map((ingre) => ingre.name).join(", ");
+      SetIngreList(names);
+    }
+  }, [ingredient]);
+  
+  useEffect(() => {
+    if (recipe && recipe.instruction) {
+      const instructionsArray = recipe.instruction
+        .split(",")
+        .map((item, index) => `${index + 1}. ${item.trim()}`);
+      SetInstru(instructionsArray);
+    }
+  }, [recipe]);
 
-    useEffect(() => {
-        if (ingredient) {
-            const names = ingredient.map(ingre => ingre.name).join(', ');
-            SetIngreList(names);
-        }
-    }, [ingredient])
-
-    useEffect(() => {
-        if (recipe && recipe.instruction) {
-            const instructionsArray = recipe.instruction.split(',').map((item, index) =>
-                `${index + 1}. ${item.trim()}`
-            );
-            SetInstru(instructionsArray);
-        }
-    }, [recipe])
+  useEffect(() => {
+    if (user_id === getuser.userId) {
+      Setmatch_writer(true);
+    } else {
+      Setmatch_writer(false);
+    }
+  }, [user_id, getuser.userId]);
 
     useEffect(() => {
         fetch(url)
@@ -57,7 +66,7 @@ export default function Dt_Recipe() {
             setUrl(`https://localhost:7230/api/Review/${recipe_id}/${storedId}/review`);
         }
     }
-
+  }
     function onSubmit(e) {
         e.preventDefault();
         if (FilterRef.current.value === 'None') {
@@ -105,7 +114,17 @@ export default function Dt_Recipe() {
         <>
             <Header />
 
-            <h2 style={{ color: "Red" }}>{recipe.name}</h2>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <h2 style={{ color: "Red" }}>{recipe.name}</h2>
+              {match_writer && (
+                <Link
+                  style={{ marginLeft: "auto" }}
+                  to={`/RecipeList/Recipe/Modify/${recipe_id}`}
+                >
+                  <button>Modify</button>
+                </Link>
+              )}
+            </div>
             <div className="recipe_div">
                 <h3 style={{ color: "green" }}>Ingredient</h3>
                 {ingreList}
