@@ -66,7 +66,7 @@ export default function Dt_Recipe() {
             setUrl(`https://localhost:7230/api/Review/${recipe_id}/${storedId}/review`);
         }
     }
-  }
+  
     function onSubmit(e) {
         e.preventDefault();
         if (FilterRef.current.value === 'None') {
@@ -157,7 +157,7 @@ export default function Dt_Recipe() {
                         <option value="None">None</option>
                         <option value={getuser.userId}>{getuser.userId}</option>
                     </select>
-                </div>
+                </div>  
                 <table className="table_review">
                     <tbody>
                         <tr>
@@ -171,6 +171,10 @@ export default function Dt_Recipe() {
                         ))}
                     </tbody>
                 </table>
+                <div className="next_back_div">
+                    <button>Back</button>
+                    <button>Next</button>
+                </div>
             </div>
         </>
     );
