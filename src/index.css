@@ -276,3 +276,16 @@ button {
   align-items: center;
   justify-content: center; 
 }
+
+.next_back_div {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.next_back_div button {
+  padding: 5px 10px;
+  font-size: 15px;
+}
