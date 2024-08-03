@@ -3,6 +3,7 @@ import useFetch from "../hooks/useFetch";
 import Header from "./Header";
 import { useEffect, useState, useRef } from "react";
 import Review from "./Review";
+import DelModal from "./Del_RecipeModal";
 
 
 export default function Dt_Recipe() {
@@ -22,6 +23,7 @@ export default function Dt_Recipe() {
     const ContentRef = useRef(null);
     const RatingRef = useRef(null);
     const [status, setStatus] = useState('');
+    const [showModal, setShowModal] = useState(false);
  
     const [currentPage, setCurrentPage] = useState(1);
     const reviewsPerPage = 10;
@@ -131,10 +133,18 @@ export default function Dt_Recipe() {
         }
     }
 
+    const openDelModal = () => {
+        setShowModal(true);
+    };
+
     return (
         <>
             <Header />
-
+            <DelModal
+                    show={showModal}
+                    onClose={() => setShowModal(false)}
+                    current_recipe_id = {recipe_id}
+                />
             <div style={{ display: "flex", alignItems: "center" }}>
                 <h2 style={{ color: "Red" }}>{recipe.name}</h2>
                 {match_writer && (
@@ -143,7 +153,7 @@ export default function Dt_Recipe() {
                     </Link>
                 )}
                 {match_writer && (
-                    <button >Delete</button>
+                    <button style={{ marginLeft: "20px", background:"red"}} onClick={openDelModal}>Delete</button>
                 )}
             </div>
             <div className="recipe_div">
