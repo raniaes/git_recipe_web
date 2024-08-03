@@ -13,6 +13,15 @@ export default function Recipe_List() {
   const FilterRef = useRef(null);
   const categories = useFetch(`https://localhost:7230/api/Category`);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 10;
+
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = recipeList.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
+  const totalPages = Math.ceil(recipeList.length / recipesPerPage);
+
   useEffect(() => {
     if (location.state && location.state.Id) {
       sessionStorage.setItem("userId", location.state.Id);
@@ -49,6 +58,18 @@ export default function Recipe_List() {
     }
   }
 
+  function nextPage() {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
+  function prevPage() {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
   return (
     <>
       <Header />
@@ -79,14 +100,15 @@ export default function Recipe_List() {
               Writer
             </td>
           </tr>
-          {recipeList.map((recipe) => (
+          {currentRecipes.map((recipe) => (
             <Recipe recipe={recipe} key={recipe.id} />
           ))}
         </tbody>
       </table>
       <div className="next_back_div">
-        <button>Back</button>
-        <button>Next</button>
+        <button onClick={prevPage} style={{ opacity: (currentPage === 1) ? 0.3 : 1 }} disabled={currentPage === 1}>Back</button>
+        <label>{currentPage}</label>
+        <button onClick={nextPage} style={{ opacity: (currentPage === totalPages) ? 0.3 : 1 }} disabled={currentPage === totalPages}>Next</button>
       </div>
     </>
   );
