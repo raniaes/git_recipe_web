@@ -115,15 +115,15 @@ export default function Dt_Recipe() {
             <Header />
 
             <div style={{ display: "flex", alignItems: "center" }}>
-              <h2 style={{ color: "Red" }}>{recipe.name}</h2>
-              {match_writer && (
-                <Link
-                  style={{ marginLeft: "auto" }}
-                  to={`/RecipeList/Recipe/Modify/${recipe_id}`}
-                >
-                  <button>Modify</button>
-                </Link>
-              )}
+                <h2 style={{ color: "Red" }}>{recipe.name}</h2>
+                {match_writer && (
+                    <Link style={{ marginLeft: "auto" }} to={`/RecipeList/Recipe/Modify/${recipe_id}`}>
+                        <button>Modify</button>
+                    </Link>
+                )}
+                {match_writer && (
+                    <button >Delete</button>
+                )}
             </div>
             <div className="recipe_div">
                 <h3 style={{ color: "green" }}>Ingredient</h3>
