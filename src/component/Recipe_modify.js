@@ -122,17 +122,16 @@ export default function Recipe_Modify() {
 
       url = url += `&userId=${userId}&categoryId=${categoryId}`;
 
+      const formData = new FormData();
+
+      formData.append('id', recipe_id);
+      formData.append('name', name);
+      formData.append('instruction', combinedInstValues);
+      formData.append('file', picRef.current.files[0]);
+
       fetch(url, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: recipe_id,
-          name: name,
-          instruction: combinedInstValues,
-          pic_address: picAddress,
-        }),
+        body: formData,
       }).then((res) => {
         if (res.ok) {
           alert("modify success.");
@@ -142,12 +141,16 @@ export default function Recipe_Modify() {
           alert("Already Exist same Recipe.");
           history("/RecipeAdd");
           setIsLoading(false);
-        }
-      });
+        }else {
+          alert("Error: " + res.status);
+          setIsLoading(false);
+      }});
     }
   }
 
   const ingreRef = useRef(null);
+  const picRef = useRef(null);
+
 
   const combinedInstValues = instructions.join(",");
 
@@ -248,11 +251,7 @@ export default function Recipe_Modify() {
       </div>
       <div className="input_area">
         <h3>Picture</h3>
-        <input
-          type="text"
-          value={picAddress}
-          onChange={(e) => setPicAddress(e.target.value)}
-        />
+        <input type="file" ref={picRef} />
       </div>
       <button style={{ opacity: isLoading ? 0.3 : 1 }}>
         {isLoading ? "Saveing..." : "Save"}
