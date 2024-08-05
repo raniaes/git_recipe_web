@@ -74,6 +74,12 @@ export default function Recipe_Add() {
   function onSubmit(e) {
     e.preventDefault();
 
+    if (!picRef.current.files.length > 0)
+    {
+        alert("include picture!!");
+        return
+    }
+
     if (!isLoading) {
       setIsLoading(true);
 
@@ -85,21 +91,23 @@ export default function Recipe_Add() {
         ].getAttribute("dataid"),
         10
       );
+
+      const formData = new FormData();
+
+      formData.append('name', nameRef.current.value);
+      formData.append('instruction', combinedInstValues);
+      formData.append('file', picRef.current.files[0]);
+
       let url = `https://localhost:7230/api/Recipe?userId=${userId}&categoryId=${categoryId}`;
       ingreIds.forEach((id) => {
         url += `&ingreId=${id}`;
       });
 
+      
+
       fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: nameRef.current.value,
-          instruction: combinedInstValues,
-          pic_address: picRef.current.value,
-        }),
+        body: formData,
       }).then((res) => {
         if (res.ok) {
           alert("Registration success.");
@@ -109,7 +117,10 @@ export default function Recipe_Add() {
           alert("Already Exist same Recipe.");
           history("/RecipeAdd");
           setIsLoading(false);
-        }
+        }else {
+          alert("Error: " + res.status);
+          setIsLoading(false);
+      }
       });
     }
   }
@@ -214,7 +225,7 @@ export default function Recipe_Add() {
       </div>
       <div className="input_area">
         <h3>Picture</h3>
-        <input type="text" ref={picRef} placeholder="pic_address" />
+        <input type="file" ref={picRef} />
       </div>
       <button style={{ opacity: isLoading ? 0.3 : 1 }}>
         {isLoading ? "Saveing..." : "Save"}
