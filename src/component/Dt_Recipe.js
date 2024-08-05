@@ -24,6 +24,8 @@ export default function Dt_Recipe() {
     const RatingRef = useRef(null);
     const [status, setStatus] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(true);
+    let imageUrl = '';
  
     const [currentPage, setCurrentPage] = useState(1);
     const reviewsPerPage = 10;
@@ -137,6 +139,16 @@ export default function Dt_Recipe() {
         setShowModal(true);
     };
 
+    const handleError = () => {
+        setImageLoaded(false);
+    };
+
+    const recipe_pic_add = recipe.pic_address;
+    if (recipe_pic_add) {
+        const image_name = recipe_pic_add.split('\\').pop();
+        imageUrl = `https://localhost:7230/api/Recipe/images/${image_name}`;
+    }
+
     return (
         <>
             <Header />
@@ -155,6 +167,9 @@ export default function Dt_Recipe() {
                 {match_writer && (
                     <button style={{ marginLeft: "20px", background:"red"}} onClick={openDelModal}>Delete</button>
                 )}
+            </div>
+            <div className="recipe_div">
+                {imageLoaded && imageUrl ?  (<img src={imageUrl} alt="Recipe" onError={handleError} />) : (<p>Image not available</p>)}
             </div>
             <div className="recipe_div">
                 <h3 style={{ color: "green" }}>Ingredient</h3>
