@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import '../Css/Login.css';
 
 export default function Login() {
   const Navigate = useNavigate();
@@ -33,26 +34,22 @@ export default function Login() {
   const PasswordRef = useRef(null);
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2>Login</h2>
-      <div className="input_area">
-        <label>Id</label>
-        <input type="text" placeholder="ID" ref={IdRef} />
-      </div>
-      <div className="input_area">
-        <label>Password</label>
-        <input type="password" placeholder="Password" ref={PasswordRef} />
-      </div>
-      <div>
-        <button className="button_lgn">Login</button>
-      </div>
-      <div>
-        <label>Do you want </label>
-        <Link to="/Register" className="button_reg">
-          Sign Up
-        </Link>
-        <label> ?</label>
-      </div>
-    </form>
+    <div class="container">
+      <section id="content">
+        <form onSubmit={onSubmit}>
+          <h1>Login</h1>
+          <div>
+            <input type="text" placeholder="ID" required="" id="username" ref={IdRef} />
+          </div>
+          <div>
+            <input type="password" placeholder="Password" required="" id="password" ref={PasswordRef} />
+          </div>
+          <div>
+            <input type="submit" value="Log in" />
+            <Link to="/Register" className="button_reg">Register</Link>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 }

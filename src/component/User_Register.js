@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import '../Css/Login.css';
 
 export default function User_Register() {
   const [isLoading, setIsLoading] = useState(false);
@@ -40,24 +41,26 @@ export default function User_Register() {
   const pwRef = useRef(null);
 
   return (
-    <form onSubmit={onSubmit}>
-      <h1>Register Form</h1>
-      <div className="input_area">
-        <label>ID</label>
-        <input type="text" ref={idRef}></input>
-      </div>
-      <div className="input_area">
-        <label>PASSWORD</label>
-        <input type="password" ref={pwRef}></input>
-      </div>
-      <button style={{ opacity: isLoading ? 0.3 : 1 }}>
-        {isLoading ? "Registering..." : "Register"}
-      </button>
-      <Link to="/" style={{ marginLeft: "10px", textDecoration: "none" }}>
-        <button className="backbutton" type="button">
-          Back to Login
-        </button>
-      </Link>
-    </form>
+    <div class="container">
+      <section id="content">
+        <form onSubmit={onSubmit}>
+          <h1>Register</h1>
+          <div>
+            <input type="text" placeholder="ID" required="" id="username" ref={idRef} />
+          </div>
+          <div>
+            <input type="password" placeholder="Password" required="" id="password" ref={pwRef} />
+          </div>
+          <div>
+            <input type="submit" style={{ opacity: isLoading ? 0.3 : 1 }} value={isLoading ? "Registering..." : "Register"} />
+            <Link to="/">
+              <button className="backbutton" type="button">
+                Back to Login
+              </button>
+            </Link>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 }
