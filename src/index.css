@@ -97,19 +97,6 @@ table {
   width: 100%;
 }
 
-table td {
-  width: 10%;
-  height: 50px;
-  border: 1px solid #ccc;
-  text-align: center;
-  font-size: 20px;
-}
-
-table td:first-child {
-  width: 25%;
-  text-align: left;
-}
-
 .table_review {
   border-collapse: collapse;
   width: 100%;
@@ -218,12 +205,6 @@ button {
   height: 40px;
   font-size: 20px;
   padding: 0 10px;
-}
-
-.input_area select {
-  width: 400px;
-  height: 40px;
-  font-size: 20px;
 }
 
 .input_search {
