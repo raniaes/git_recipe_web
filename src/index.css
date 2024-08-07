@@ -193,7 +193,7 @@ table {
   font-size: 20px;
 }
 
-table td {
+.table_recipe td {
   width: 10%;
   height: 50px;
   border: 1px solid #ccc;
@@ -201,7 +201,7 @@ table td {
   font-size: 20px;
 }
 
-table td:first-child {
+.table_recipe td:first-child {
   width: 25%;
   text-align: left;
 }
