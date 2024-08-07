@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import '../Css/Dt_Recipe.css';
 
 const DelModal = ({ show, onClose, current_recipe_id }) => {
 
@@ -38,10 +39,10 @@ const DelModal = ({ show, onClose, current_recipe_id }) => {
                 <p>Do you want to delete this recipe?</p>
                 
                 <div>
-                    <button onClick={delRecipe} style={{ marginRight: "20px", background:"red"}}>
+                    <button className="recipe_btn_modify" onClick={delRecipe}>
                         Delete
                     </button>
-                    <button onClick={onClose}>
+                    <button className="recipe_btn_del" onClick={onClose}>
                         Cancel
                     </button>
                 </div>

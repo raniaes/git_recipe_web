@@ -4,6 +4,7 @@ import Header from "./Header";
 import { useEffect, useState, useRef } from "react";
 import Review from "./Review";
 import DelModal from "./Del_RecipeModal";
+import '../Css/Dt_Recipe.css';
 
 
 export default function Dt_Recipe() {
@@ -26,7 +27,7 @@ export default function Dt_Recipe() {
     const [showModal, setShowModal] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(true);
     let imageUrl = '';
- 
+
     const [currentPage, setCurrentPage] = useState(1);
     const reviewsPerPage = 10;
 
@@ -36,29 +37,29 @@ export default function Dt_Recipe() {
 
     const totalPages = Math.ceil(reviewList.length / reviewsPerPage);
 
-  useEffect(() => {
-    if (ingredient) {
-      const names = ingredient.map((ingre) => ingre.name).join(", ");
-      SetIngreList(names);
-    }
-  }, [ingredient]);
-  
-  useEffect(() => {
-    if (recipe && recipe.instruction) {
-      const instructionsArray = recipe.instruction
-        .split(",")
-        .map((item, index) => `${index + 1}. ${item.trim()}`);
-      SetInstru(instructionsArray);
-    }
-  }, [recipe]);
+    useEffect(() => {
+        if (ingredient) {
+            const names = ingredient.map((ingre) => ingre.name).join(", ");
+            SetIngreList(names);
+        }
+    }, [ingredient]);
 
-  useEffect(() => {
-    if (user_id === getuser.userId) {
-      Setmatch_writer(true);
-    } else {
-      Setmatch_writer(false);
-    }
-  }, [user_id, getuser.userId]);
+    useEffect(() => {
+        if (recipe && recipe.instruction) {
+            const instructionsArray = recipe.instruction
+                .split(",")
+                .map((item, index) => `${index + 1}. ${item.trim()}`);
+            SetInstru(instructionsArray);
+        }
+    }, [recipe]);
+
+    useEffect(() => {
+        if (user_id === getuser.userId) {
+            Setmatch_writer(true);
+        } else {
+            Setmatch_writer(false);
+        }
+    }, [user_id, getuser.userId]);
 
     useEffect(() => {
         fetch(url)
@@ -66,7 +67,7 @@ export default function Dt_Recipe() {
                 return res.json()
             }).then(data =>
                 setReviewList(data)
-            ).catch(() => 
+            ).catch(() =>
                 setReviewList([])
             );
     }, [url]);
@@ -79,7 +80,7 @@ export default function Dt_Recipe() {
             setUrl(`https://localhost:7230/api/Review/${recipe_id}/${storedId}/review`);
         }
     }
-  
+
     function onSubmit(e) {
         e.preventDefault();
         if (FilterRef.current.value === 'None') {
@@ -165,76 +166,82 @@ export default function Dt_Recipe() {
     return (
         <>
             <Header />
-            <DelModal
-                    show={showModal}
-                    onClose={() => setShowModal(false)}
-                    current_recipe_id = {recipe_id}
-                />
-            <div style={{ display: "flex", alignItems: "center" }}>
-                <h2 style={{ color: "Red" }}>{recipe.name}</h2>
-                {match_writer && (
-                    <Link style={{ marginLeft: "auto" }} to={`/RecipeList/Recipe/Modify/${recipe_id}`}>
-                        <button>Modify</button>
-                    </Link>
-                )}
-                {match_writer && (
-                    <button style={{ marginLeft: "20px", background:"red"}} onClick={openDelModal}>Delete</button>
-                )}
-            </div>
-            <div className="recipe_div">
-                {imageLoaded && imageUrl ?  (<img src={imageUrl} alt="Recipe" onError={handleError} />) : (<p>Image not available</p>)}
-            </div>
-            <div className="recipe_div">
-                <h3 style={{ color: "green" }}>Ingredient</h3>
-                {ingreList}
-            </div>
-            <div className="recipe_div">
-                <h3 style={{ color: "skyblue" }}>Instruction</h3>
-                {instru.map((item, index) => (
-                    <div key={index}>{item}</div>
-                ))}
-            </div>
-            <div className="recipe_div" style={{ position: 'relative' }}>
-                <h3 style={{ color: "purple" }}>Review</h3>
-
-                <form onSubmit={onSubmit}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <input type="text" style={{ width: "400px" }} placeholder="Content" ref={ContentRef} />
-                        <select style={{ marginLeft: '5px' }} ref={RatingRef}>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                        <button className="button_Add_review" style={{ marginLeft: '5px' }}>Add</button>
+            <div class="container_Dt">
+                <section id="content_Dt">
+                    <DelModal
+                        show={showModal}
+                        onClose={() => setShowModal(false)}
+                        current_recipe_id={recipe_id}
+                    />
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <h2 style={{ color: "Red" }}>{recipe.name}</h2>
+                        {match_writer && (
+                            <Link to={`/RecipeList/Recipe/Modify/${recipe_id}`}>
+                                <button style = {{ marginLeft: "800px" }} className="recipe_btn_modify">Modify</button>
+                            </Link>
+                        )}
+                        {match_writer && (
+                            <button className="recipe_btn_del" onClick={openDelModal}>Delete</button>
+                        )}
                     </div>
-                </form>
-
-                <div style={{ display: 'flex' }}>
-                    <select style={{ marginLeft: 'auto' }} ref={FilterRef} onChange={review_change}>
-                        <option value="None">None</option>
-                        <option value={getuser.userId}>{getuser.userId}</option>
-                    </select>
-                </div>  
-                <table className="table_review">
-                    <tbody>
-                        <tr>
-                            <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Date</td>
-                            <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Content</td>
-                            <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Reviewer</td>
-                            <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Rating</td>
-                        </tr>
-                        {currentReviews.map(review => (
-                            <Review review={review} key={review.id} onDelete={handleDelete} />
+                    <div className="recipe_div_img">
+                        {imageLoaded && imageUrl ? (<img src={imageUrl} alt="Recipe" onError={handleError} />) : (<p>Image not available</p>)}
+                    </div>
+                    <div className="recipe_div">
+                        <h3 style={{ color: "green" }}>Ingredient</h3>
+                        {ingreList}
+                    </div>
+                    <div className="recipe_div">
+                        <h3 style={{ color: "skyblue" }}>Instruction</h3>
+                        {instru.map((item, index) => (
+                            <div key={index}>{item}</div>
                         ))}
-                    </tbody>
-                </table>
-                <div className="next_back_div">
-                    <button onClick={prevPage} style={{ opacity: (currentPage === 1) ? 0.3 : 1 }} disabled={currentPage === 1}>Back</button>
-                    <label>{currentPage}</label>
-                    <button onClick={nextPage} style={{ opacity: (currentPage === totalPages) ? 0.3 : 1 }} disabled={currentPage === totalPages}>Next</button>
-                </div>
+                    </div>
+                    <div className="recipe_div" style={{ position: 'relative' }}>
+                        <h3 style={{ color: "purple" }}>Review</h3>
+
+                        <form onSubmit={onSubmit}>
+                            <div className="input_add_review">
+                                <label>Review:</label>
+                                <input type="text" placeholder="Content" ref={ContentRef} />
+                                <label>Rate:</label>
+                                <select style={{ marginLeft: '5px' }} ref={RatingRef}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <button className="button_Add_review" style={{ marginLeft: '5px' }}>Add</button>
+                            </div>
+                        </form>
+
+                        <div className="review_filter_div">
+                            <select ref={FilterRef} onChange={review_change}>
+                                <option value="None">None</option>
+                                <option value={getuser.userId}>{getuser.userId}</option>
+                            </select>
+                        </div>
+                        <table className="table_review">
+                            <tbody>
+                                <tr>
+                                    <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Date</td>
+                                    <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Content</td>
+                                    <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Reviewer</td>
+                                    <td style={{ border: 'none', fontWeight: 'bold', color: 'grey' }}>Rating</td>
+                                </tr>
+                                {currentReviews.map(review => (
+                                    <Review review={review} key={review.id} onDelete={handleDelete} />
+                                ))}
+                            </tbody>
+                        </table>
+                        <div className="next_back_div">
+                            <button onClick={prevPage} style={{ opacity: (currentPage === 1) ? 0.3 : 1 }} disabled={currentPage === 1}>Back</button>
+                            <label>{currentPage}</label>
+                            <button onClick={nextPage} style={{ opacity: (currentPage === totalPages) || (totalPages === 0) ? 0.3 : 1 }} disabled={currentPage === totalPages || totalPages === 0}>Next</button>
+                        </div>
+                    </div>
+                </section>
             </div>
         </>
     );

@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import Recipe from "./Recipe";
 import React, { useEffect, useState, useRef } from "react";
+import '../Css/Recipe_List.css';
 
 export default function Recipe_List() {
   const location = useLocation();
@@ -73,42 +74,45 @@ export default function Recipe_List() {
   return (
     <>
       <Header />
+      <div class="container_re">
+        <section id="content_re">
+          <div className="input_search">
+            <input type="text" placeholder="Name" ref={NameRef} />
+            <button onClick={search}>search</button>
+            <select ref={FilterRef} onChange={filter}>
+              <option value="None">None</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <div className="input_search">
-        <input type="text" placeholder="Name" ref={NameRef} />
-        <button onClick={search}>search</button>
-        <select ref={FilterRef} onChange={filter}>
-          <option value="None">None</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.name}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <table style={{ borderCollapse: "collapse", width: "100%" }}>
-        <tbody>
-          <tr>
-            <td style={{ border: "none", fontWeight: "bold", color: "green" }}>
-              Name
-            </td>
-            <td style={{ border: "none", fontWeight: "bold", color: "green" }}>
-              Category
-            </td>
-            <td style={{ border: "none", fontWeight: "bold", color: "green" }}>
-              Writer
-            </td>
-          </tr>
-          {currentRecipes.map((recipe) => (
-            <Recipe recipe={recipe} key={recipe.id} />
-          ))}
-        </tbody>
-      </table>
-      <div className="next_back_div">
-        <button onClick={prevPage} style={{ opacity: (currentPage === 1) ? 0.3 : 1 }} disabled={currentPage === 1}>Back</button>
-        <label>{currentPage}</label>
-        <button onClick={nextPage} style={{ opacity: (currentPage === totalPages) ? 0.3 : 1 }} disabled={currentPage === totalPages}>Next</button>
+          <table style={{ borderCollapse: "collapse", width: "100%", marginLeft: "3%"}}>
+            <tbody>
+              <tr>
+                <td style={{ border: "none", fontWeight: "bold", color: "green" }}>
+                  Name
+                </td>
+                <td style={{ border: "none", fontWeight: "bold", color: "green" }}>
+                  Category
+                </td>
+                <td style={{ border: "none", fontWeight: "bold", color: "green" }}>
+                  Writer
+                </td>
+              </tr>
+              {currentRecipes.map((recipe) => (
+                <Recipe recipe={recipe} key={recipe.id} />
+              ))}
+            </tbody>
+          </table>
+          <div className="next_back_div">
+            <button onClick={prevPage} style={{ opacity: (currentPage === 1) ? 0.3 : 1 }} disabled={currentPage === 1}>Back</button>
+            <label>{currentPage}</label>
+            <button onClick={nextPage} style={{ opacity: (currentPage === totalPages) || (totalPages === 0) ? 0.3 : 1 }} disabled={currentPage === totalPages || totalPages === 0}>Next</button>
+          </div>
+        </section>
       </div>
     </>
   );
