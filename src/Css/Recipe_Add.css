@@ -313,6 +313,16 @@ small {
     width: 150px;
 }
 
+#add_content form button:hover {
+    background: rgb(254, 193, 81);
+    background: -moz-linear-gradient(to bottom, rgba(254, 193, 81, 1) 0%, rgba(254, 231, 154, 1) 100%);
+    background: -webkit-linear-gradient(to bottom, rgba(254, 193, 81, 1) 0%, rgba(254, 231, 154, 1) 100%);
+    background: -o-linear-gradient(to bottom, rgba(254, 193, 81, 1) 0%, rgba(254, 231, 154, 1) 100%);
+    background: -ms-linear-gradient(to bottom, rgba(254, 193, 81, 1) 0%, rgba(254, 231, 154, 1) 100%);
+    background: linear-gradient(to bottom, rgba(254, 193, 81, 1) 0%, rgba(254, 231, 154, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fec151', endColorstr='#fee79a', GradientType=0);
+}
+
 #add_content form .del_btn{
     background: firebrick;
     background: -moz-linear-gradient(to bottom, firebrick 0%, firebrick 100%);
