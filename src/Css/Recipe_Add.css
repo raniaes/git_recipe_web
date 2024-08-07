@@ -314,12 +314,11 @@ small {
 }
 
 #add_content form .del_btn{
-    background: rgb(255, 0, 0);
-    background: -moz-linear-gradient(to bottom, rgb(255, 0, 0) 0%, rgb(254, 81, 81) 100%);
-    background: -webkit-linear-gradient(to bottom, rgb(255, 0, 0) 0%, rgb(254, 81, 81) 100%);
-    background: -o-linear-gradient(to bottom, rgb(255, 0, 0) 0%, rgb(254, 81, 81) 100%);
-    background: -ms-linear-gradient(to bottom, rgb(255, 0, 0) 0%, rgb(254, 81, 81) 100%);
-    background: linear-gradient(to bottom, rgb(255, 0, 0) 0%, rgb(254, 81, 81) 100%);
+    background: firebrick;
+    background: -moz-linear-gradient(to bottom, firebrick 0%, firebrick 100%);
+    background: -webkit-linear-gradient(to bottom, firebrick 0%, firebrick 100%);
+    background: -ms-linear-gradient(to bottom, firebrick 0%, firebrick 100%);
+    background: linear-gradient(to bottom, firebrick 0%, firebrick 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fee79a', endColorstr='#fec151', GradientType=0);
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
@@ -331,8 +330,8 @@ small {
     -ms-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
     -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
-    border: 1px solid #d63131;
-    color: #ffffff;
+    border: 1px solid white;
+    color: #fff;
     cursor: pointer;
     float: left;
     font: bold 15px Helvetica, Arial, sans-serif;
@@ -341,6 +340,15 @@ small {
     position: relative;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
     width: 150px;
+}
+
+#add_content form .del_btn:hover {
+    background: #d43f00;
+    background: -moz-linear-gradient(to bottom, #d43f00 0%, #c0392b 100%);
+    background: -webkit-linear-gradient(to bottom, #d43f00 0%, #c0392b 100%);
+    background: -ms-linear-gradient(to bottom, #d43f00 0%, #c0392b 100%);
+    background: linear-gradient(to bottom, #d43f00 0%, #c0392b 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d43f00', endColorstr='#c0392b', GradientType=0);
 }
 
 
