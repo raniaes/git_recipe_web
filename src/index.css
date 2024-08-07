@@ -142,26 +142,6 @@ table td:first-child {
   color: #ccc;
 }
 
-.btn_del {
-  margin-left: 10px;
-  color: #fff;
-  background-color: firebrick;
-  font-size: 13px;
-
-}
-
-button {
-  padding: 10px;
-  font-weight: bold;
-  font-size: 18px;
-  cursor: pointer;
-  border: 0 none;
-  border-radius: 6px;
-  padding: 10px 20px;
-  color: #fff;
-  background-color: dodgerblue;
-}
-
 .backbutton {
   color: #fff;
   display: inline-block;

@@ -176,12 +176,12 @@ export default function Dt_Recipe() {
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <h2 style={{ color: "Red" }}>{recipe.name}</h2>
                         {match_writer && (
-                            <Link style={{ marginLeft: "auto" }} to={`/RecipeList/Recipe/Modify/${recipe_id}`}>
-                                <button>Modify</button>
+                            <Link to={`/RecipeList/Recipe/Modify/${recipe_id}`}>
+                                <button style = {{ marginLeft: "800px" }} className="recipe_btn_modify">Modify</button>
                             </Link>
                         )}
                         {match_writer && (
-                            <button style={{ marginLeft: "20px", background: "red" }} onClick={openDelModal}>Delete</button>
+                            <button className="recipe_btn_del" onClick={openDelModal}>Delete</button>
                         )}
                     </div>
                     <div className="recipe_div_img">
