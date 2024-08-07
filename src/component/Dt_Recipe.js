@@ -144,11 +144,24 @@ export default function Dt_Recipe() {
         setImageLoaded(false);
     };
 
-    const recipe_pic_add = recipe.pic_address;
-    if (recipe_pic_add) {
-        const image_name = recipe_pic_add.split('\\').pop();
-        imageUrl = `https://localhost:7230/api/Recipe/images/${image_name}`;
-    }
+    // const recipe_pic_add = recipe.pic_address;
+    // if (recipe_pic_add) {
+    //     const image_name = recipe_pic_add.split('\\').pop();
+    //     imageUrl = `https://localhost:7230/api/Recipe/images/${image_name}`;
+    // }
+
+    const convertToBase64 = (arrayBuffer) => {
+        let binary = '';
+        const bytes = new Uint8Array(arrayBuffer);
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    };
+
+    imageUrl = recipe.imageData ? `data:image/jpeg;base64,${recipe.imageData}` : null;
+
 
     return (
         <>
