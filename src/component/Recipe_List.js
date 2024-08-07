@@ -89,7 +89,7 @@ export default function Recipe_List() {
             </select>
           </div>
 
-          <table style={{ borderCollapse: "collapse", width: "100%", marginLeft: "3%"}}>
+          <table className="table_recipe" style={{ borderCollapse: "collapse", width: "100%", marginLeft: "3%"}}>
             <tbody>
               <tr>
                 <td style={{ border: "none", fontWeight: "bold", color: "green" }}>
