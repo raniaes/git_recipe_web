@@ -2,6 +2,7 @@ import useFetch from "../hooks/useFetch";
 import Modal from "./Add_IngreModal";
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import '../Css/Recipe_Add.css';
 
 export default function Recipe_Add() {
   const categorys = useFetch("https://localhost:7230/api/Category");
@@ -29,12 +30,19 @@ export default function Recipe_Add() {
   }, [refreshIngredients]);
 
   const handleAddClick = () => {
-    const selectedOption =
-      ingreRef.current.options[ingreRef.current.selectedIndex];
+    const selectedOption = ingreRef.current.options[ingreRef.current.selectedIndex];
     const newIngredient = {
       id: parseInt(selectedOption.getAttribute("data-id"), 10),
       name: selectedOption.value,
     };
+  
+    const isDuplicate = selectedIngredients.some(ingredient => ingredient.id === newIngredient.id);
+    
+    if (isDuplicate) {
+      alert("Already selected ingredient");
+      return;
+    }
+  
     const updatedIngredients = [...selectedIngredients, newIngredient];
     setSelectedIngredients(updatedIngredients);
   };
@@ -133,117 +141,123 @@ export default function Recipe_Add() {
   const combinedInstValues = inputValues.join(",");
 
   return (
-    <form onSubmit={onSubmit}>
-      <h1>Recipe Register Form</h1>
-      <div className="input_area">
-        <h3>Recipe Name</h3>
-        <input type="text" ref={nameRef} />
-      </div>
-      <div className="input_area">
-        <h3>Category</h3>
-        <select ref={categoryRef}>
-          {categorys.map((ct) => (
-            <option key={ct.id} value={ct.name} dataid={ct.id}>
-              {ct.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="input_area">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <h3>Ingredient Select</h3>
-          <button onClick={openModal} type="button">
-            add ingre
-          </button>
-        </div>
-        <select ref={ingreRef}>
-          {ingredients.map((ingre) => (
-            <option key={ingre.id} value={ingre.name} data-id={ingre.id}>
-              {ingre.name}
-            </option>
-          ))}
-        </select>
-        <button
-          onClick={handleAddClick}
-          type="button"
-          style={{ marginLeft: "20px" }}
-        >
-          Add
-        </button>
-      </div>
-      <div>
-        <table>
-          <tbody>
-            {selectedIngredients.map((ingredient) => (
-              <tr key={ingredient.id}>
-                <td>{ingredient.name}</td>
-                <button
-                  onClick={() => Del_ingreRow(ingredient.id)}
-                  type="button"
-                  style={{ marginLeft: "20px" }}
-                >
-                  Del
-                </button>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="input_area">
-        <h3>Instruction</h3>
-        <table style={{ border: 0, borderCollapse: "collapse" }}>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
-                <td style={{ border: 0 }}>{index + 1}</td>
-                <td style={{ border: 0 }}>
-                  <input
-                    type="text"
-                    value={inputValues[index]}
-                    onChange={(event) => handleInputChange(index, event)}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button onClick={Add_Line} type="button">
-          Add Line
-        </button>
-        <button onClick={Del_Line} type="button" style={{ marginLeft: "20px" }}>
-          Del Line
-        </button>
-        <div style={{ display: "none" }}>
-          <strong>Combined Inst Values:</strong> {combinedInstValues}
-        </div>
-      </div>
-      <div className="input_area">
-        <h3>Picture</h3>
-        <input type="file" ref={picRef} />
-      </div>
-      <button style={{ opacity: isLoading ? 0.3 : 1 }}>
-        {isLoading ? "Saveing..." : "Save"}
-      </button>
-      <Link
-        to="/RecipeList"
-        style={{ marginLeft: "10px", textDecoration: "none" }}
-      >
-        <button className="backbutton" type="button">
-          Back to Recipe List
-        </button>
-      </Link>
+    <div class="add_container">
+      <section id="add_content">
 
-      <Modal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        onAdd={handleAddIngredient}
-      />
-    </form>
+        <form onSubmit={onSubmit}>
+          <h1>Recipe Registation</h1>
+          <div>
+            <h3>Recipe Name</h3>
+            <input type="text" ref={nameRef} />
+          </div>
+
+          <div className="input_area">
+            <h3>Category</h3>
+            <select ref={categoryRef}>
+              {categorys.map((ct) => (
+                <option key={ct.id} value={ct.name} dataid={ct.id}>
+                  {ct.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="input_area">
+            <h3>Ingredient Select</h3>
+            <div style={{ display: "flex", alignItems: "center", marginLeft:"160px", height:"60px" }}>
+            <select ref={ingreRef} onChange={handleAddClick} style={{ width: "250px"}}>
+              <option value="" disabled selected>------</option>
+              {ingredients.map((ingre) => (
+                <option key={ingre.id} value={ingre.name} data-id={ingre.id}>
+                  {ingre.name}
+                </option>
+              ))}
+            </select>
+            <Link>
+              <button onClick={openModal} type="button" style={{width:"180px"}}>
+                  Create New ingre
+              </button>
+            </Link>
+            
+            </div>            
+          </div>
+
+          <div className="table_container" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <table className="ingre_table">
+              <tbody>
+                {selectedIngredients.map((ingredient) => (
+                  <tr key={ingredient.id}>
+                    <td style={{ border: "1px solid black", width:"80%"}}>{ingredient.name}</td>
+                    <td style={{ border: "1px solid black" }}>
+                      <button className="del_btn"
+                        onClick={() => Del_ingreRow(ingredient.id)}
+                        type="button"
+                        style={{ marginBottom:"5px", marginLeft: "10px", marginRight: "10px",width:"70px"}}
+                      >
+                        DEL
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="input_area">
+            <h3>Instruction</h3>
+            <table style={{ border: 0, borderCollapse: "collapse" }}>
+              <tbody>
+                {rows.map((row, index) => (
+                  <tr key={index}>
+                    <td style={{ border: 0, fontSize: "20px"}}>{index + 1}</td>
+                    <td style={{ border: 0 }}>
+                      <input
+                        type="text"
+                        value={inputValues[index]}
+                        onChange={(event) => handleInputChange(index, event)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div style={{ height: "40px", marginTop: "30px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <button onClick={Add_Line} type="button">
+                Add Line
+              </button>
+              <button onClick={Del_Line} type="button" style={{ marginLeft: "20px" }}>
+                Del Line
+              </button>
+            </div>
+            
+          </div>
+
+          <div className="input_area">
+            <h3>Picture</h3>
+            <input type="file" ref={picRef} />
+          </div>
+
+          <div style={{ height: "40px", marginTop: "30px", marginBottom:"50px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <button style={{ opacity: isLoading ? 0.3 : 1, marginTop:"38px"}}>
+              {isLoading ? "Saveing..." : "Save"}
+            </button>
+            <Link
+              to="/RecipeList"
+              style={{ marginLeft: "10px", textDecoration: "none" }}
+            >
+              <button className="backbutton" type="button">
+                Go to List
+              </button>
+            </Link>
+          </div>
+
+          <Modal
+            show={showModal}
+            onClose={() => setShowModal(false)}
+            onAdd={handleAddIngredient}
+          />
+        </form>
+      </section>
+    </div>
   );
 }
