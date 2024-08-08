@@ -28,59 +28,59 @@ For a detailed overview of the web page UI design, please refer to the [UI Desig
 ### 1. Component
 #### Add_IngreModal.js
 - Description: Create a new ingredient Modal window
-- contribution: (Gwantea Lee)
+- contribution: (Gwan)
 #### Del_RecipeModal.js
 - Description: Delete the recipe function. & the modal window that asks again before deleting the recipe.
-- contribution: (Geunmok Song)
+- contribution: (Gwan)
 #### Dt_Recipe.js
 - Description: Recipe details and shows all data such as food photos, ingredients, recipes, and reviews.
-- contribution: (Geunmok Song)Food ingredients, recipes, reviews parts (Gwantea Lee) Food photo part
+- contribution: (mok)Food ingredients, recipes, reviews parts (Gwan) Food photo part
 #### Header.js
 - Description: The components that make up the header of a webpage.
-- contribution: (Gwantea Lee)
+- contribution: (Gwan)
 #### Login.js
 - Description: A component with a login page and functionality.
-- contribution: (Geunmok Song)
+- contribution: (mok)
 #### Recipe_Add.js
 - Description: This component provides a form for users to register new recipes. Users can select, add, and delete ingredients, enter instructions, and upload photos.
-- contribution: (Geunmok Song) Upload photo part / (Gwantea Lee) developed all the features of the recipe registration page except for the image upload functionality.
+- contribution: (mok) Upload photo part / (Gwan) developed all the features of the recipe registration page except for the image upload functionality.
 #### Recipe_List.js
 - Description: Displays a list of recipes, provides filtering and searching capabilities, and performs page navigation capabilities
-- contribution: (Geunmok Song)
+- contribution: (mok)
 #### Recipe_modify.js
 - Description: A component with a recipe modification page and functionality.
-- contribution: (Geunmok Song) Upload photo part / (Gwantea Lee) developed all the features of the recipe modification page except for the image upload functionality.
+- contribution: (mok) Upload photo part / (Gwan) developed all the features of the recipe modification page except for the image upload functionality.
 #### Recipe.js
 - Description: A component that displays all recipes stored in the database as a list.
-- contribution: (Geunmok Song)
+- contribution: (mok)
 #### Review.js
 - Description: Displays the review information in a table format, and allows the user who created the review to delete it.
-- contribution: (Geunmok Song)
+- contribution: (mok)
 #### User_Register.js
 - Description: A component with a user registration page and functionality.
-- contribution: (Gwantea Lee)
+- contribution: (Gwan)
 
 ### 2. Css
 #### Dt_Recipe.css
 - Description: This CSS file defines the style of the Dt_recipe component.
-- contribution: (Geunmok Song)
+- contribution: (mok)
 #### Header.css
 - Description: This CSS file defines the style of the Header component.
-- contribution: (Gwantea Lee)
+- contribution: (Gwan)
 #### Login.css
 - Description: This CSS file defines the style of the Login component.
-- contribution: (Geunmok Song)
+- contribution: (mok)
 #### Recipe_Add.css
 - Description: This CSS file defines the style of the Recipe_Add component.
-- contribution: (Gwantea Lee)
+- contribution: (Gwan)
 #### Recipe_List.css
 - Description: This CSS file defines the style of the Recipe_List component.
-- contribution: (Geunmok Song)
+- contribution: (mok)
 #### Recipe_Modify.css
 - Description: This CSS file defines the style of the Recipe_Modify component.
-- contribution: (Gwantea Lee)
+- contribution: (Gwan)
 
 ### 3. hooks
 #### useFetch.js
 - Description: Defines a custom React hook useFetch, which is responsible for retrieving data from a given URL and managing it as a state.
-- contribution: (Gwantea Lee) (Geunmok Song)
+- contribution: (Gwan) (mok)
