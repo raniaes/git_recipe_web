@@ -21,7 +21,7 @@ The project is a recipe web page where users can view other people's opinions wh
 - Users can leave comments on each recipe and rate them with a rating.
 
 ## Web Page UI
-For a detailed overview of the web page UI design, please refer to the [UI Design Presentation](./docs/Web_recipe_UI.pptx).
+For a detailed overview of the web page UI design, please refer to the [UI Design](./docs/web_recipe_UI.pptx).
 
 ## Description of Web page components and style files
 ### 1. Component
