@@ -21,5 +21,47 @@ The project is a recipe web page where users can view other people's opinions wh
 - Users can leave comments on each recipe and rate them with a rating.
 
 ## Web Page UI
-For a detailed overview of the web page UI design, please refer to the [UI Design Presentation](./docs/UI_Design.pptx).
+For a detailed overview of the web page UI design, please refer to the [UI Design Presentation](./docs/Web_recipe_UI.pptx).
 
+## Description of Web page components and style files
+### Component
+#### Add_IngreModal.js
+- function: create new ingredient Modal part
+#### Del_RecipeModal.js
+- function:
+#### Dt_Recipe.js
+- function:
+#### Header.js
+- function:
+#### Login.js
+- function:
+#### Recipe_Add.js
+- function:
+#### Recipe_List.js
+- function:
+#### Recipe_modify.js
+- function:
+#### Recipe.js
+- function:
+#### Review.js
+- function:
+#### User_Register.js
+- function:
+
+### Css
+#### Dt_Recipe.css
+- function:
+#### Header.css
+- function:
+#### Login.css
+- function:
+#### Recipe_Add.css
+- function:
+#### Recipe_List.css
+- function:
+#### Recipe_Modify.css
+- function:
+
+### hooks
+#### useFetch.js
+- function:
