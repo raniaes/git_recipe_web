@@ -11,6 +11,14 @@ export default function Recipe_Modify() {
   const [category, setCategory] = useState("");
   const [instructions, setInstructions] = useState([]);
   const [picAddress, setPicAddress] = useState("");
+  const [fileName, setFileName] = useState('');
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
 
   const recipe_id = useParams().Recipe;
 
@@ -259,9 +267,13 @@ export default function Recipe_Modify() {
             </div>
           </div>
 
-          <div className="input_area">
+          <div>
             <h3>Picture</h3>
-            <input type="file" ref={picRef} />
+            <div className="mod_last_btn_line">
+              <input type="file" ref={picRef} name="uploadfile" id="img" style={{display:"none"}} onChange={handleFileChange}/>
+              <label htmlFor="img" className="filebutton">Select file</label>
+              {fileName && <p style={{marginLeft: "30px", fontSize : "16px" , fontWeight: "bold" }}>{fileName}</p>}
+            </div>
           </div>
 
           <div className="mod_last_btn_line"> 
