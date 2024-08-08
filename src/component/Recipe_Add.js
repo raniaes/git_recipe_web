@@ -19,6 +19,14 @@ export default function Recipe_Add() {
 
   const [rows, setRows] = useState([""]);
   const [inputValues, setInputValues] = useState([""]);
+  const [fileName, setFileName] = useState('');
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
 
   useEffect(() => {
     fetch("https://localhost:7230/api/Ingredient")
@@ -232,9 +240,13 @@ export default function Recipe_Add() {
             
           </div>
 
-          <div className="input_area">
+          <div>
             <h3>Picture</h3>
-            <input type="file" ref={picRef} />
+            <div className="add_last_btn_line">
+              <input type="file" ref={picRef} name="uploadfile" id="img" style={{display:"none"}} onChange={handleFileChange}/>
+              <label htmlFor="img" className="filebutton">Select file</label>
+              {fileName && <p style={{marginLeft: "30px", fontSize : "16px" , fontWeight: "bold" }}>{fileName}</p>}
+            </div>
           </div>
 
           <div className="add_last_btn_line">

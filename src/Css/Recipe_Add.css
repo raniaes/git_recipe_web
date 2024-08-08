@@ -414,6 +414,49 @@ small {
     text-decoration: underline;
 }
 
+#add_content form .filebutton{
+    background: rgb(154, 214, 254);
+    background: -moz-linear-gradient(to bottom, rgba(154, 214, 254) 0%, rgb(81, 156, 254) 100%);
+    background: -webkit-linear-gradient(to bottom, rgba(154, 214, 254) 0%, rgba(81, 156, 254) 100%);
+    background: -o-linear-gradient(to bottom, rgba(154, 214, 254) 0%, rgba(81, 156, 254) 100%);
+    background: -ms-linear-gradient(to bottom, rgba(154, 214, 254) 0%, rgba(81, 156, 254) 100%);
+    background: linear-gradient(to bottom, rgba(154, 214, 254) 0%, rgba(81, 156, 254) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fee79a', endColorstr='#fec151', GradientType=0);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    -ms-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    border: 1px solid rgba(154, 214, 254);
+    color: black;
+    cursor: pointer;
+    float: left;
+    font: bold 15px Helvetica, Arial, sans-serif;
+    height: 35px;
+    /* margin: 5px 0 35px 15px; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    width: 100px;
+}
+
+#add_content form .filebutton:hover {
+    background: rgb(81, 156, 254);
+    background: -moz-linear-gradient(to bottom, rgba(81, 156, 254, 1) 0%, rgba(154, 214, 254) 100%);
+    background: -webkit-linear-gradient(to bottom, rgba(81, 156, 254, 1) 0%, rgba(154, 214, 254) 100%);
+    background: -o-linear-gradient(to bottom, rgba(81, 156, 254, 1) 0%, rgba(154, 214, 254) 100%);
+    background: -ms-linear-gradient(to bottom, rgba(81, 156, 254, 1) 0%, rgba(154, 214, 254) 100%);
+    background: linear-gradient(to bottom, rgba(81, 156, 254, 1) 0%, rgba(154, 214, 254) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fec151', endColorstr='#fee79a', GradientType=0);
+}
+
 .button {
     background: rgb(247, 249, 250);
     background: -moz-linear-gradient(to bottom, rgba(247, 249, 250, 1) 0%, rgba(240, 240, 240, 1) 100%);
