@@ -36,28 +36,28 @@ For a detailed overview of the web page UI design, please refer to the [UI Desig
 - contribution: (Gwan)
 #### Dt_Recipe.js
 - Description: Recipe details and shows all data such as food photos, ingredients, recipes, and reviews.
-- contribution: (mok)Food ingredients, recipes, reviews parts (Gwan) Food photo part
+- contribution: (Mok)Food ingredients, recipes, reviews parts (Gwan) Food photo part
 #### Header.js
 - Description: The components that make up the header of a webpage.
 - contribution: (Gwan)
 #### Login.js
 - Description: A component with a login page and functionality.
-- contribution: (mok)
+- contribution: (Mok)
 #### Recipe_Add.js
 - Description: This component provides a form for users to register new recipes. Users can select, add, and delete ingredients, enter instructions, and upload photos.
-- contribution: (mok) Upload photo part / (Gwan) developed all the features of the recipe registration page except for the image upload functionality.
+- contribution: (Mok) Upload photo part / (Gwan) developed all the features of the recipe registration page except for the image upload functionality.
 #### Recipe_List.js
 - Description: Displays a list of recipes, provides filtering and searching capabilities, and performs page navigation capabilities
-- contribution: (mok)
+- contribution: (Mok)
 #### Recipe_modify.js
 - Description: A component with a recipe modification page and functionality.
-- contribution: (mok) Upload photo part / (Gwan) developed all the features of the recipe modification page except for the image upload functionality.
+- contribution: (Mok) Upload photo part / (Gwan) developed all the features of the recipe modification page except for the image upload functionality.
 #### Recipe.js
 - Description: A component that displays all recipes stored in the database as a list.
-- contribution: (mok)
+- contribution: (Mok)
 #### Review.js
 - Description: Displays the review information in a table format, and allows the user who created the review to delete it.
-- contribution: (mok)
+- contribution: (Mok)
 #### User_Register.js
 - Description: A component with a user registration page and functionality.
 - contribution: (Gwan)
@@ -65,19 +65,19 @@ For a detailed overview of the web page UI design, please refer to the [UI Desig
 ### 2. Css
 #### Dt_Recipe.css
 - Description: This CSS file defines the style of the Dt_recipe component.
-- contribution: (mok)
+- contribution: (Mok)
 #### Header.css
 - Description: This CSS file defines the style of the Header component.
 - contribution: (Gwan)
 #### Login.css
 - Description: This CSS file defines the style of the Login component.
-- contribution: (mok)
+- contribution: (Mok)
 #### Recipe_Add.css
 - Description: This CSS file defines the style of the Recipe_Add component.
 - contribution: (Gwan)
 #### Recipe_List.css
 - Description: This CSS file defines the style of the Recipe_List component.
-- contribution: (mok)
+- contribution: (Mok)
 #### Recipe_Modify.css
 - Description: This CSS file defines the style of the Recipe_Modify component.
 - contribution: (Gwan)
@@ -85,4 +85,4 @@ For a detailed overview of the web page UI design, please refer to the [UI Desig
 ### 3. hooks
 #### useFetch.js
 - Description: Defines a custom React hook useFetch, which is responsible for retrieving data from a given URL and managing it as a state.
-- contribution: (Gwan) (mok)
+- contribution: (Gwan) (Mok)
